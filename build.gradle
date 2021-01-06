@@ -1,12 +1,12 @@
 plugins {
-	id 'org.springframework.boot' version '2.4.1'
+	id 'org.springframework.boot' version '2.0.0.RELEASE'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
 }
 
 group = 'com.example.vultum'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '11'
+sourceCompatibility = '1.8'
 
 configurations {
 	compileOnly {
@@ -23,6 +23,17 @@ dependencies {
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+}
+
+task bootRunDev(type: bootRun.class) {
+	group = 'Application'
+	dependsOn = ['build']
+
+	doFirst() {
+		main = "com.example.vultum.currency.CurrencyApplication"
+		classpath = sourceSets.main.runtimeClasspath
+		systemProperty 'spring.profiles.active', 'dev'
+	}
 }
 
 test {
