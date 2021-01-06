@@ -9,9 +9,9 @@ import org.springframework.context.annotation.Configuration;
 @Setter
 @Configuration
 public class GifServiceConfiguration extends ExternalServiceConfiguration{
-    @Value("${application.gifService.increase-query:rich}")
+    @Value("${application.gifService.increaseQuery:rich}")
     private String increaseQuery;
-    @Value("${application.gifService.decrease-query:broke}")
+    @Value("${application.gifService.decreaseQuery:broke}")
     private String decreaseQuery;
 
     public GifServiceConfiguration(@Value("${application.gifService.apiKey}") String apiKey,
