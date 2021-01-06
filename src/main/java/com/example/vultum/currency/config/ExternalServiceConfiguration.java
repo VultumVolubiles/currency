@@ -5,6 +5,11 @@ public abstract class ExternalServiceConfiguration {
     private final String endpoint;
 
     public ExternalServiceConfiguration(String apiKey, String endpoint) {
+        if (apiKey == null || apiKey.isEmpty())
+            throw new IllegalArgumentException("apiKey of external service must be not null or empty!");
+        if (endpoint == null || endpoint.isEmpty())
+            throw new IllegalArgumentException("endpoint of external service must be not null or empty!");
+
         this.apiKey = apiKey;
         this.endpoint = endpoint;
     }
