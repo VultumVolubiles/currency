@@ -1,0 +1,11 @@
+application:
+  gifService:
+    apiKey:
+    endpoint: https://api.giphy.com/v1/gifs
+    increaseQuery: 'rich'
+    decreaseQuery: 'broke'
+  currencyService:
+    apiKey:
+    endpoint: https://openexchangerates.org/api/
+    baseCurrency: 'USD'
+    compareCurrency: 'RUB'
