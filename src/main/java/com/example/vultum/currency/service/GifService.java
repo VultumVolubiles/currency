@@ -2,7 +2,6 @@ package com.example.vultum.currency.service;
 
 import com.example.vultum.currency.config.GifServiceConfiguration;
 import com.example.vultum.currency.dto.GifResource;
-import com.example.vultum.currency.dto.GifSearchResource;
 import com.example.vultum.currency.service.client.ExternalGifServiceClient;
 import feign.Feign;
 import feign.gson.GsonDecoder;
@@ -29,8 +28,6 @@ public class GifService {
 
     @SneakyThrows
     public List<GifResource> search(String query){
-        GifSearchResource result = client.search(configuration.getApiKey(), query, 1);
-        GifResource resource = new GifResource(result.data.get(0));
-        return result.get();
+        return client.search(configuration.getApiKey(), query, 1).get();
     }
 }
