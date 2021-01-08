@@ -3,6 +3,7 @@ package com.example.vultum.currency.service;
 import com.example.vultum.currency.config.GifServiceConfiguration;
 import com.example.vultum.currency.dto.GifResource;
 import com.example.vultum.currency.dto.GifSearchResource;
+import com.example.vultum.currency.service.client.ExternalGifServiceClient;
 import feign.Feign;
 import feign.gson.GsonDecoder;
 import feign.gson.GsonEncoder;
@@ -15,7 +16,7 @@ import java.util.List;
 @Service
 public class GifService {
     private final GifServiceConfiguration configuration;
-    private final GifClient client;
+    private final ExternalGifServiceClient client;
 
     public GifService(GifServiceConfiguration configuration) {
         this.configuration = configuration;
@@ -23,7 +24,7 @@ public class GifService {
                 .client(new OkHttpClient())
                 .encoder(new GsonEncoder())
                 .decoder(new GsonDecoder())
-                .target(GifClient.class, configuration.getEndpoint());
+                .target(ExternalGifServiceClient.class, configuration.getEndpoint());
     }
 
     @SneakyThrows
