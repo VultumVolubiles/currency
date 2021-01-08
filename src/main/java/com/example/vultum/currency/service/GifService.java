@@ -13,12 +13,11 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class GifService {
-    private final GifServiceConfiguration configuration;
+public class GifService extends ExternalService<GifServiceConfiguration>{
     private final ExternalGifServiceClient client;
 
     public GifService(GifServiceConfiguration configuration) {
-        this.configuration = configuration;
+        super(configuration);
         client = Feign.builder()
                 .client(new OkHttpClient())
                 .encoder(new GsonEncoder())
@@ -27,7 +26,7 @@ public class GifService {
     }
 
     @SneakyThrows
-    public List<GifResource> search(String query){
-        return client.search(configuration.getApiKey(), query, 1).get();
+    public List<GifResource> search(String query, int limit){
+        return client.search(configuration().getApiKey(), query, limit).get();
     }
 }

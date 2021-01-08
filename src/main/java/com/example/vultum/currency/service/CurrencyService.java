@@ -13,12 +13,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 @Service
-public class CurrencyService {
-    private final CurrencyServiceConfiguration configuration;
-    private ExternalCurrencyServiceClient client;
+public class CurrencyService extends ExternalService<CurrencyServiceConfiguration>{
+    private final ExternalCurrencyServiceClient client;
 
     public CurrencyService(CurrencyServiceConfiguration configuration) {
-        this.configuration = configuration;
+        super(configuration);
         client = Feign.builder()
                 .client(new OkHttpClient())
                 .encoder(new GsonEncoder())
@@ -28,17 +27,17 @@ public class CurrencyService {
 
     public CurrencyResource latest(String base) {
         if (base == null)
-            return client.latest(configuration.getApiKey());
+            return client.latest(configuration().getApiKey());
         else
-            return client.latest(configuration.getApiKey(), base.toUpperCase());
+            return client.latest(configuration().getApiKey(), base.toUpperCase());
     }
 
     public CurrencyResource yesterday(String base) {
         String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
         if (base == null)
-            return client.historical(configuration.getApiKey(), date);
+            return client.historical(configuration().getApiKey(), date);
         else
-            return client.historical(configuration.getApiKey(), date, base.toUpperCase());
+            return client.historical(configuration().getApiKey(), date, base.toUpperCase());
     }
 
     public int compareRate(CurrencyResource res1, CurrencyResource res2, String rate) {
