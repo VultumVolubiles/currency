@@ -33,7 +33,7 @@ public class CurrencyService extends ExternalService<CurrencyServiceConfiguratio
     }
 
     public CurrencyResource yesterday(String base) {
-        String date = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+        String date = LocalDateTime.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         if (base == null)
             return client.historical(configuration().getApiKey(), date);
         else
